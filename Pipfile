@@ -9,6 +9,7 @@ djangorestframework = "*"
 pillow = "*"
 django-filter = "*"
 djoser = "*"
+whitenoise = "*"
 
 [dev-packages]
 
