@@ -10,6 +10,7 @@ pillow = "*"
 django-filter = "*"
 djoser = "*"
 whitenoise = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
