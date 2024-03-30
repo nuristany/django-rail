@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.contrib.auth.models import User
 
 from store.validators import validate_file_size
 
@@ -50,12 +51,13 @@ class Item(models.Model):
         
     def __str__(self):
         return f"{self.title}"
+   
     
 
     
 class ItemImage(models.Model):
     item = models.ForeignKey(Item, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='shop/images', validators=[validate_file_size])
+    image = models.ImageField(upload_to='store/images', validators=[validate_file_size])
 
     def __str__(self):
         return f"Image for {self.item.title} {self.image}"

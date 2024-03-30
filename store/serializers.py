@@ -27,15 +27,15 @@ class ItemImageSerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     images = ItemImageSerializer(many=True, read_only=True)
     category = serializers.StringRelatedField()
-    phone = serializers.SerializerMethodField()
+    seller_phone = serializers.SerializerMethodField()
     seller_full_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Item
-        fields = ['id', 'title', 'price', 'description', 'seller', 'seller_full_name', 'phone', 'condition', 'category', 'images']
+        fields = ['id', 'title', 'price', 'description', 'seller_phone', 'condition', 'category', 'images']
 
-    def get_phone(self, obj):
-        # Access the contact number from the associated UserProfile
+    def get_seller_phone(self, obj):
+        # Access the seller's phone number from the associated UserProfile
         if obj.seller:
             return obj.seller.phone
         return None
