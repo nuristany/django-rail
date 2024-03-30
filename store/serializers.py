@@ -1,15 +1,11 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
-
-from.models import Item, Category, ItemImage, UserProfile
+from .models import Item, Category, ItemImage, UserProfile
 
 
-
-        
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['id', 'phone', 'messaging_app_username']
+        fields = ['id', 'phone']
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -59,6 +55,3 @@ class ItemSerializer(serializers.ModelSerializer):
             category_serializer.is_valid(raise_exception=True)
             category_serializer.save()
         return super().update(instance, validated_data)
-
-
-
