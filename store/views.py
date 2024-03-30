@@ -8,7 +8,7 @@ from .serializers import ItemSerializer, CategorySerializer, ItemImageSerializer
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 
 # Create your views here.
