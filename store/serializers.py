@@ -1,7 +1,11 @@
 from rest_framework import serializers
-from .models import Item, Category, ItemImage, UserProfile
+from django.contrib.auth.models import User
+
+from.models import Item, Category, ItemImage, UserProfile
 
 
+
+        
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
@@ -23,15 +27,15 @@ class ItemImageSerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     images = ItemImageSerializer(many=True, read_only=True)
     category = serializers.StringRelatedField()
-    seller_phone = serializers.SerializerMethodField()
+    phone = serializers.SerializerMethodField()
     seller_full_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Item
-        fields = ['id', 'title', 'price', 'description', 'seller_phone', 'condition', 'category', 'images']
+        fields = ['id', 'title', 'price', 'description', 'seller', 'seller_full_name', 'phone', 'condition', 'category', 'images']
 
-    def get_seller_phone(self, obj):
-        # Access the seller's phone number from the associated UserProfile
+    def get_phone(self, obj):
+        # Access the contact number from the associated UserProfile
         if obj.seller:
             return obj.seller.phone
         return None
@@ -55,3 +59,6 @@ class ItemSerializer(serializers.ModelSerializer):
             category_serializer.is_valid(raise_exception=True)
             category_serializer.save()
         return super().update(instance, validated_data)
+
+
+
