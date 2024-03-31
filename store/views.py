@@ -15,7 +15,7 @@ from rest_framework.decorators import action
 
 
 
-class UserProfileViesSet(ModelViewSet):
+class UserProfileViewsSet(ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
 
