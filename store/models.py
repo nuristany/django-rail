@@ -57,7 +57,7 @@ class Item(models.Model):
     
 class ItemImage(models.Model):
     item = models.ForeignKey(Item, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='store/images', validators=[validate_file_size])
+    image = models.ImageField(upload_to='shop/images', validators=[validate_file_size])
 
     def __str__(self):
         return f"Image for {self.item.title} {self.image}"
