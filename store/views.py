@@ -33,7 +33,6 @@ class CategoryViewSet(ModelViewSet):
 
     
 class ItemViewSet(ModelViewSet):
-     queryset = Item.objects.all()
      queryset = Item.objects.prefetch_related('images').all()
      serializer_class = ItemSerializer
      filter_backends = [DjangoFilterBackend, SearchFilter]
