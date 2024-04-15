@@ -10,6 +10,7 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
+from .permissions import IsOwnerOrReadOnly
 
 # Create your views here.
 
@@ -38,7 +39,7 @@ class ItemViewSet(ModelViewSet):
      filter_backends = [DjangoFilterBackend, SearchFilter]
      search_fields = ['title', 'description']
      filterset_fields = ['category_id']
-     permission_classes = [IsAuthenticated]
+     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
 
      def get_serializer_context(self):
