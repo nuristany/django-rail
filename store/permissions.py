@@ -1,6 +1,5 @@
 from rest_framework import permissions
-from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.exceptions import PermissionDenied
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     """
@@ -17,5 +16,5 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if obj.seller == request.user:
             return True
         else:
-            # If the requesting user is not the owner, return a custom response
-            return Response("You do not have permission to perform this action.", status=status.HTTP_403_FORBIDDEN)
+            # If the requesting user is not the owner, raise PermissionDenied exception
+            raise PermissionDenied("You do not have permission to perform this action.")
