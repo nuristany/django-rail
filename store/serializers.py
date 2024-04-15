@@ -28,22 +28,15 @@ class ItemImageSerializer(serializers.ModelSerializer):
         return ItemImage.objects.create(item_id=item_id, **validated_data)
     
 
-
-
-
-
-
-
 class ItemSerializer(serializers.ModelSerializer):
     images = ItemImageSerializer(many=True, read_only=True)
-    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())  # Use PrimaryKeyRelatedField to represent the category
-    category_name = serializers.CharField(write_only=True)
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+    phone = serializers.SerializerMethodField()
+    seller_full_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Item
         fields = ['id', 'title', 'price', 'description', 'seller', 'seller_full_name', 'phone', 'condition', 'category', 'images']
-
-    # Define get_phone and get_seller_full_name methods as before
 
     def get_phone(self, obj):
         if obj.seller:
@@ -59,25 +52,19 @@ class ItemSerializer(serializers.ModelSerializer):
         return None
 
     def create(self, validated_data):
-        category_name = validated_data.pop('category_name')
-        category_instance, _ = Category.objects.get_or_create(name=category_name)
+        category_id = validated_data.pop('category')
+        category_instance, _ = Category.objects.get_or_create(id=category_id)
         validated_data['category'] = category_instance
         return Item.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        category_name = validated_data.pop('category_name', None)
-        if category_name:
-            category_instance, _ = Category.objects.get_or_create(name=category_name)
+        category_id = validated_data.pop('category', None)
+        if category_id:
+            category_instance, _ = Category.objects.get_or_create(id=category_id)
             instance.category = category_instance
         return super().update(instance, validated_data)
 
-
-
-
-
     
-
-
 
 # class ItemSerializer(serializers.ModelSerializer):
 #     images = ItemImageSerializer(many=True, read_only=True)
@@ -112,6 +99,23 @@ class ItemSerializer(serializers.ModelSerializer):
 #         category_instance, _ = Category.objects.get_or_create(id=category_data.id, defaults=category_data.__dict__)
 #         validated_data['category'] = category_instance
 #         return Item.objects.create(**validated_data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
 
 
 
