@@ -28,6 +28,31 @@ class ItemImageSerializer(serializers.ModelSerializer):
         return ItemImage.objects.create(item_id=item_id, **validated_data)
     
 
+
+class ItemSerializer(serializers.ModelSerializer):
+    images = ItemImageSerializer(many=True, read_only=True)
+    category_name = serializers.CharField(write_only=True)  # Make category_name writable
+    phone = serializers.SerializerMethodField()
+    seller_full_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Item
+        fields = ['id', 'title', 'price', 'description', 'seller', 'seller_full_name', 'phone', 'condition', 'category_name', 'images']
+
+    def get_phone(self, obj):
+        if obj.seller:
+            return obj.seller.phone
+        return None
+    
+    def get_seller_full_name(self, obj):
+        if obj.seller:
+            if obj.seller.first_name and obj.seller.last_name:
+                return f"{obj.seller.first_name} {obj.seller.last_name}"
+            elif obj.seller.is_superuser:
+                return obj.seller.username
+        return None
+    
+
 # class ItemSerializer(serializers.ModelSerializer):
 #     images = ItemImageSerializer(many=True, read_only=True)
 #     category_name = serializers.CharField(write_only=True)  # Make category_name writable
@@ -71,8 +96,7 @@ class ItemImageSerializer(serializers.ModelSerializer):
 
 
 
-from rest_framework import serializers
-from .models import Item, Category
+
 
 class ItemSerializer(serializers.ModelSerializer):
     images = ItemImageSerializer(many=True, read_only=True)
@@ -97,18 +121,18 @@ class ItemSerializer(serializers.ModelSerializer):
                 return obj.seller.username
         return None
 
-    def create(self, validated_data):
-        category_name = validated_data.pop('category_name')
-        category_instance, created = Category.objects.get_or_create(name=category_name)
-        validated_data['category'] = category_instance
-        return Item.objects.create(**validated_data)
+    # def create(self, validated_data):
+    #     category_name = validated_data.pop('category_name')
+    #     category_instance, created = Category.objects.get_or_create(name=category_name)
+    #     validated_data['category'] = category_instance
+    #     return Item.objects.create(**validated_data)
 
-    def update(self, instance, validated_data):
-        category_name = validated_data.pop('category_name', None)
-        if category_name:
-            category_instance, created = Category.objects.get_or_create(name=category_name)
-            instance.category = category_instance
-        return super().update(instance, validated_data)
+    # def update(self, instance, validated_data):
+    #     category_name = validated_data.pop('category_name', None)
+    #     if category_name:
+    #         category_instance, created = Category.objects.get_or_create(name=category_name)
+    #         instance.category = category_instance
+    #     return super().update(instance, validated_data)
 
 
     
