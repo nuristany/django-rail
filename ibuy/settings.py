@@ -159,7 +159,7 @@ REST_FRAMEWORK = {
     ),
 
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ]
 
     
@@ -168,6 +168,8 @@ REST_FRAMEWORK = {
 DJOSER = {
     'SERIALIZERS':{
         'user_create': 'core.serializers.UserCreateSerializer',
+        'current_user': 'core.serializers.UserSerializer',
+
 
     }
 }
