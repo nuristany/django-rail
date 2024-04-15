@@ -38,7 +38,7 @@ class ItemViewSet(ModelViewSet):
      filter_backends = [DjangoFilterBackend, SearchFilter]
      search_fields = ['title', 'description']
      filterset_fields = ['category_id']
-     permission_classes = [IsAuthenticated]
+     #permission_classes = [IsAuthenticated]
 
 
      def get_serializer_context(self):
