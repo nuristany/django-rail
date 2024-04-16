@@ -65,15 +65,17 @@ class ItemSerializer(serializers.ModelSerializer):
     
 
 
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
 
     
-    def update(self, instance, validated_data):
-        category_data = validated_data.pop('category', None)
-        if category_data:
-            category_serializer = CategorySerializer(instance.category, data=category_data)
-            category_serializer.is_valid(raise_exception=True)
-            category_serializer.save()
-        return super().update(instance, validated_data)
+    # def update(self, instance, validated_data):
+    #     category_data = validated_data.pop('category', None)
+    #     if category_data:
+    #         category_serializer = CategorySerializer(instance.category, data=category_data)
+    #         category_serializer.is_valid(raise_exception=True)
+    #         category_serializer.save()
+    #     return super().update(instance, validated_data)
 
 
 
