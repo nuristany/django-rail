@@ -31,7 +31,7 @@ class ItemImageSerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     images = ItemImageSerializer(many=True, read_only=True)
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
-    category = serializers.StringRelatedField()
+    # category = serializers.StringRelatedField()
     phone = serializers.SerializerMethodField()
     seller_full_name = serializers.SerializerMethodField()
 
@@ -74,6 +74,7 @@ class ItemSerializer(serializers.ModelSerializer):
             category_serializer.is_valid(raise_exception=True)
             category_serializer.save()
         return super().update(instance, validated_data)
+
 
 
 
