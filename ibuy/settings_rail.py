@@ -4,8 +4,8 @@ from decouple import config
 
 SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = ['web-production-036f.up.railway.app']  
-CSRF_TRUSTED_ORIGINS = ['https://web-production-036f.up.railway.app']
+# ALLOWED_HOSTS = ['web-production-036f.up.railway.app']  
+# CSRF_TRUSTED_ORIGINS = ['https://web-production-036f.up.railway.app']
 
 DATABASES = {
     'default': {
@@ -24,5 +24,5 @@ DATABASES = {
 
 
 
-#ALLOWED_HOSTS = ['127.0.0.1']  
+# ALLOWED_HOSTS = ['127.0.0.1']  
 
