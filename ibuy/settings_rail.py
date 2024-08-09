@@ -1,28 +1,18 @@
 from ibuy.settings import *
-
 from decouple import config
-
+# Security settings
 SECRET_KEY = config('SECRET_KEY')
 
-# ALLOWED_HOSTS = ['web-production-036f.up.railway.app']  
-# CSRF_TRUSTED_ORIGINS = ['https://web-production-036f.up.railway.app']
-
+# Database configuration
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DATABASE_NAME'),
         'USER': config('DATABASE_USER'),
         'PASSWORD': config('DATABASE_PASSWORD'),
         'HOST': config('DATABASE_HOST'),
         'PORT': config('DATABASE_PORT'),
-        'OPTIONS': {'sslmode': 'require'},
-            
-        
-
+        'OPTIONS': {'sslmode': 'disable'},  # Add sslmode if required
     }
 }
-
-
-
-# ALLOWED_HOSTS = ['127.0.0.1']  
 
