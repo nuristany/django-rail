@@ -16,3 +16,6 @@ DATABASES = {
     }
 }
 
+
+ALLOWED_HOSTS = ['https://django-rail-production-f714.up.railway.app/']
+
