@@ -18,4 +18,8 @@ DATABASES = {
 
 
 ALLOWED_HOSTS = ['django-rail-production-f714.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://django-rail-production-f714.up.railway.app',
+]
+
 
